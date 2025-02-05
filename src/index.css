@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* General Styles */
+body {
+  @apply bg-gray-100 text-gray-900;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Page Layout */
+.container {
+  @apply max-w-4xl mx-auto px-4 py-8;
+}
+
+/* Header Styling */
+h1 {
+  @apply text-3xl font-bold text-center text-blue-700;
+}
+
+h2 {
+  @apply text-2xl font-semibold text-center text-gray-800 mt-4;
+}
+
+/* Buttons */
+.btn {
+  @apply px-4 py-2 rounded shadow-md transition-all duration-200;
+}
+
+.btn-primary {
+  @apply bg-blue-500 text-white hover:bg-blue-600;
+}
+
+.btn-secondary {
+  @apply bg-green-500 text-white hover:bg-green-600;
+}
+
+.btn-tertiary {
+  @apply bg-purple-500 text-white hover:bg-purple-600;
+}
+
+/* Input Fields */
+.input-field {
+  @apply w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+/* File Upload */
+.file-upload {
+  @apply block w-full text-gray-700 border border-gray-300 rounded cursor-pointer bg-white;
+}
+
+/* Card Styling */
+.card {
+  @apply bg-white shadow-md rounded-lg p-4 border border-gray-200;
+}
+
+/* Navigation Links */
+.nav-link {
+  @apply px-4 py-2 text-white rounded-md transition-all duration-200;
+}
+
+.nav-link-blue {
+  @apply bg-blue-500 hover:bg-blue-600;
+}
+
+.nav-link-green {
+  @apply bg-green-500 hover:bg-green-600;
+}
+
+.nav-link-purple {
+  @apply bg-purple-500 hover:bg-purple-600;
+}
+
+/* Loading Spinner */
+.spinner {
+  @apply animate-spin h-5 w-5 border-t-2 border-blue-500 border-solid rounded-full;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  h1 {
+    @apply text-2xl;
+  }
+
+  .btn {
+    @apply text-sm px-3 py-2;
+  }
+}
