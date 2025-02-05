@@ -13,18 +13,18 @@ const Login = ({ onLogin }) => {
     setMessage('');
 
     try {
-    //   const response = await axios.post('http://127.0.0.1:8000/token', new URLSearchParams({
-    //     username,
-    //     password,
-    //   }), {
-    //     headers: {
-    //       'Content-Type': 'application/x-www-form-urlencoded',
-    //     },
-    //   });
+       const response = await axios.post('http://127.0.0.1:8000/token', new URLSearchParams({
+         username,
+         password,
+       }), {
+         headers: {
+           'Content-Type': 'application/x-www-form-urlencoded',
+         },
+       });
 
-    //   const { access_token } = response.data;
-    //   localStorage.setItem('token', access_token); // Save the token in localStorage
-    //   localStorage.setItem('username',username)
+       const { access_token } = response.data;
+       localStorage.setItem('token', access_token); // Save the token in localStorage
+       localStorage.setItem('username',username)
       onLogin();
       setMessage('Login successful!');
     } catch (error) {

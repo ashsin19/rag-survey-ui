@@ -38,6 +38,7 @@
     border: 1px solid #ccc; /* Light border */
     border-radius: 4px; /* Rounded corners */
     font-size: 14px; /* Font size */
+    color:#333;
 }
 
 /* Style the submit button */
