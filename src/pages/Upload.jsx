@@ -8,11 +8,15 @@ const Upload = () => {
     if (!file) return alert("Please select a file first.");
     const formData = new FormData();
     formData.append("file", file);
+    console.log(formData);
     setLoading(true);
     
     try {
       const res = await fetch("http://localhost:8000/upload/", {
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}` // Add token here
+        },
         body: formData,
       });
       
