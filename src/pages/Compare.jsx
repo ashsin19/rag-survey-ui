@@ -13,9 +13,19 @@ const Compare = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" , Authorization: `Bearer ${localStorage.getItem('token')}` },
         body: JSON.stringify({ query }),
-      });
-      const data = await res.json();
-      setComparisonResults(data.comparison || []);
+      }).then(async (res) => {
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        const contentType = res.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          return res.json();
+        } else {
+          console.log("Response is not JSON:", await res.text());
+          return null;
+        }
+      })
+      .then((data) => console.log("Parsed JSON:", data))
+      .catch((error) => console.error("Error:", error));
+      // setComparisonResults(data.comparisons || []);
     } catch (error) {
       console.error("Comparison error:", error);
       alert("An error occurred while comparing.");
