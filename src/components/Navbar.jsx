@@ -31,7 +31,7 @@ const Navbar = () => {
         <div
           className={`${
             menuOpen ? "block" : "hidden"
-          } md:flex md:space-x-8 absolute md:relative bg-white left-0 top-16 w-full md:w-auto py-4 md:py-0 md:top-auto shadow-md md:shadow-none bg-transparent`}
+          } md:flex md:space-x-8 absolute md:relative bg-white left-0 top-16 w-full md:w-auto py-4 md:py-0 md:top-auto shadow-md md:shadow-none bg-transparent !bg-transparent`}
         >
           <NavLink
             to="/"
