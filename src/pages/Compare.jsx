@@ -19,7 +19,7 @@ const Comparison = () => {
     }
 
     try {
-      const response = await fetch(`${BASE_URL}/compare/`, {
+      const response = await fetch(`https://python-rag-app-369543119888.us-central1.run.app/compare/`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,

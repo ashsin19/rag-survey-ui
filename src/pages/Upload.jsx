@@ -13,7 +13,7 @@ const Upload = () => {
     setLoading(true);
     
     try {
-      const res = await fetch(`${BASE_URL}/upload/`, {
+      const res = await fetch(`https://python-rag-app-369543119888.us-central1.run.app/upload/`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}` // Add token here

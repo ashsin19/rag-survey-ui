@@ -9,7 +9,7 @@ const Query = () => {
     if (!query) return;
     setLoading(true);
     try {
-      const res = await fetch(`${BASE_URL}/query/`, {
+      const res = await fetch(`https://python-rag-app-369543119888.us-central1.run.app/query/`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json"

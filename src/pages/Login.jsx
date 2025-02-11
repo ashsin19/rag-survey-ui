@@ -13,7 +13,7 @@ const Login = ({ onLogin }) => {
     setMessage('');
 
     try {
-       const response = await axios.post(`${BASE_URL}/token`, new URLSearchParams({
+       const response = await axios.post(`https://python-rag-app-369543119888.us-central1.run.app/token`, new URLSearchParams({
          username,
          password,
        }), {
