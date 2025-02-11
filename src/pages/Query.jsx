@@ -4,12 +4,12 @@ const Query = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const BASE_URL = process.env.REACT_APP_BACKEND_URL;
   const handleQuery = async () => {
     if (!query) return;
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/query/", {
+      const res = await fetch(`${BASE_URL}/query/`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json"

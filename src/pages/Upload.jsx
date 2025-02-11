@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const Upload = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
   const handleUpload = async () => {
     if (!file) return alert("Please select a file first.");
@@ -12,7 +13,7 @@ const Upload = () => {
     setLoading(true);
     
     try {
-      const res = await fetch("http://localhost:8000/upload/", {
+      const res = await fetch(`${BASE_URL}/upload/`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}` // Add token here
