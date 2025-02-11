@@ -11,10 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-# This sample build has exactly one step: build a new container image using this
-# repository as source. Here we use the 'docker' image to build the image and
-# tag it with the name of the image.
 steps:
 - name: 'docker'
   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/my-react-app:latest', '.' ]
