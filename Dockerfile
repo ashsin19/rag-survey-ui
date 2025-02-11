@@ -5,8 +5,6 @@ COPY package.json ./
 RUN npm install
 RUN npm install -g vite
 COPY . .
-RUN ls -ltr
-RUN ls node_modules/.bin/
 RUN npm run build
 
 # Step 2: Serve the app with a lightweight web server
