@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // Icons for menu and close
 import "../assets/styles/Navbar.css"

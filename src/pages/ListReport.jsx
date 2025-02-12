@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from "react";
+import loadRuntimeConfig  from '../components/config';
 
 const Reports = () => {
   const [reports, setReports] = useState([]);
   const [error, setError] = useState("");
+
+    const [BASE_URL, setBackendUrl] = useState("");
+
+  useEffect(() => {
+    const fetchConfig = async () => {
+      const config = await loadRuntimeConfig();
+      setBackendUrl(config.REACT_APP_BACKEND_URL);
+    };
+    fetchConfig();
+  }, []);
 
   const fetchReports = async () => {
     try {
       const token = localStorage.getItem("token");  // Retrieve token from local storage
       if (!token) throw new Error("No token found");
   
-      const response = await fetch("https://python-rag-app-369543119888.us-central1.run.app/reports/", {
+      const response = await fetch(`${BASE_URL}/reports/`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -39,7 +50,7 @@ const Reports = () => {
     }
     try {
       const response = await fetch(
-        `https://python-rag-app-369543119888.us-central1.run.app/reports/${filename}`,
+        `${BASE_URL}/reports/${filename}`,
         {
           method: "DELETE",
           headers: {

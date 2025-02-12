@@ -1,0 +1,9 @@
+[
+    {
+      "origin": ["https://my-react-app-369543119888.us-central1.run.app"],
+      "method": ["GET", "HEAD", "OPTIONS"],
+      "responseHeader": ["Content-Type"],
+      "maxAgeSeconds": 3600
+    }
+  ]
+  

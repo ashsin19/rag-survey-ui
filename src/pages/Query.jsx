@@ -1,15 +1,25 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
+import loadRuntimeConfig  from '../components/config';
 
 const Query = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+  const [BASE_URL, setBackendUrl] = useState("");
+
+  useEffect(() => {
+    const fetchConfig = async () => {
+      const config = await loadRuntimeConfig();
+      setBackendUrl(config.REACT_APP_BACKEND_URL);
+    };
+    fetchConfig();
+  }, []);
+
   const handleQuery = async () => {
     if (!query) return;
     setLoading(true);
     try {
-      const res = await fetch(`https://python-rag-app-369543119888.us-central1.run.app/query/`, {
+      const res = await fetch(`${BASE_URL}/query/`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json"
