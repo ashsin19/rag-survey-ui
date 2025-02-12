@@ -5,7 +5,7 @@ const Comparison = () => {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const BASE_URL = process.env.REACT_APP_BACKEND_URL;
   const handleCompare = async () => {
     setLoading(true);
     setError(null);
@@ -19,7 +19,7 @@ const Comparison = () => {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/compare/", {
+      const response = await fetch(`https://python-rag-app-369543119888.us-central1.run.app/compare/`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,

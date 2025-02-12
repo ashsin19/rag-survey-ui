@@ -7,13 +7,13 @@ const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-
+  const BASE_URL = process.env.REACT_APP_BACKEND_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
 
     try {
-       const response = await axios.post('http://127.0.0.1:8000/token', new URLSearchParams({
+       const response = await axios.post(`https://python-rag-app-369543119888.us-central1.run.app/token`, new URLSearchParams({
          username,
          password,
        }), {

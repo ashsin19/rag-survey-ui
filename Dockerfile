@@ -6,7 +6,8 @@ RUN npm install
 RUN npm install -g vite
 COPY . .
 
-RUN npm run build
+ARG REACT_APP_BACKEND_URL
+RUN REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL} npm run build
 
 # Step 2: Serve the app with a lightweight web server
 FROM nginx:alpine
