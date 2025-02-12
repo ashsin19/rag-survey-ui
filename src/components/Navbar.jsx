@@ -88,6 +88,17 @@ const Navbar = () => {
           >
             Reports
           </NavLink>
+          <NavLink
+            to="/vecstore"
+            className={({ isActive }) =>
+                `transition-colors text-white bg-transparent hover:bg-opacity-20 hover:bg-black rounded px-4 py-2 ${
+                  isActive ? "text-gray-200" : "text-white"
+                }`
+              }
+            onClick={() => setMenuOpen(false)}
+          >
+            Vectore Stores
+          </NavLink>
         </div>
       </div>
     </nav>

@@ -7,7 +7,7 @@ const loadRuntimeConfig = async () => {
       return config;
     } catch (error) {
       console.error("Error loading runtime config:", error);
-      return { REACT_APP_BACKEND_URL: "https://default-url.com" }; // Fallback
+      return { REACT_APP_BACKEND_URL: "https://python-rag-app-369543119888.us-central1.run.app" }; // Fallback
     }
   };
   
