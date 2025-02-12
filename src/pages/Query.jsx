@@ -45,6 +45,7 @@ const Query = () => {
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Enter query..."
         className="mt-4 p-2 border"
+        style={{color:"black"}}
       />
       <button onClick={handleQuery} className="mt-2 p-2 bg-green-500 text-white rounded">
         {loading ? "Searching..." : "Search"}

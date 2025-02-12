@@ -19,6 +19,16 @@ steps:
 # Rather than writing a build step to push this image, you can simply list the
 # image below and it will automatically be uploaded to Google Cloud Container
 # Registry.
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args: [
+        'gcloud', 'run', 'deploy', 'my-react-app',
+        '--image', 'gcr.io/$PROJECT_ID/my-react-app:latest',
+        '--platform', 'managed',
+        '--region', 'us-central1',
+        '--allow-unauthenticated'
+      ]
+
 images:
 - 'gcr.io/$PROJECT_ID/my-react-app:latest'
 
