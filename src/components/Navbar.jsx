@@ -77,6 +77,17 @@ const Navbar = () => {
           >
             Compare
           </NavLink>
+          <NavLink
+            to="/reports"
+            className={({ isActive }) =>
+                `transition-colors text-white bg-transparent hover:bg-opacity-20 hover:bg-black rounded px-4 py-2 ${
+                  isActive ? "text-gray-200" : "text-white"
+                }`
+              }
+            onClick={() => setMenuOpen(false)}
+          >
+            Reports
+          </NavLink>
         </div>
       </div>
     </nav>
