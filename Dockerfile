@@ -16,7 +16,5 @@ COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-RUN echo '{ "REACT_APP_BACKEND_URL": "https://python-rag-app-369543119888.us-central1.run.app" }' > /usr/share/nginx/html/runtime-config.json
-
 EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
