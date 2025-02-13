@@ -97,7 +97,7 @@ const Navbar = () => {
               }
             onClick={() => setMenuOpen(false)}
           >
-            Vectore Stores
+            Vector Stores
           </NavLink>
         </div>
       </div>
