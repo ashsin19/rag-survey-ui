@@ -19,13 +19,13 @@ const Reports = () => {
     fetchConfig();
   }, []);
 
-  const fetchReports = async () => {
+  const fetchReports = async (url) => {
     console.log('Fetching reports...');
-    console.log(`${BASE_URL}`)
+    console.log(`${url}`)
     try {
       const token = localStorage.getItem("token");  // Retrieve token from local storage
       if (!token) throw new Error("No token found");
-      const response = await fetch(`${BASE_URL}/reports/`, {
+      const response = await fetch(`${url}/reports/`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
