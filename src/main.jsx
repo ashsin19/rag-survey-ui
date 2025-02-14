@@ -20,7 +20,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/query" element={<Query />} />
         <Route path="/compare" element={<Compare />} />
         <Route path="/reports" element={< Reports />} />
-        <Route path="/vecstore" element={< VectorstoreList />} />
       </Routes>
     </Router>
   </React.StrictMode>

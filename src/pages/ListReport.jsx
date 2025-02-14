@@ -11,6 +11,10 @@ const Reports = () => {
     const fetchConfig = async () => {
       const config = await loadRuntimeConfig();
       setBackendUrl(config.REACT_APP_BACKEND_URL);
+      if (config.REACT_APP_BACKEND_URL) {
+        await fetchReports(config.REACT_APP_BACKEND_URL);
+      }
+
     };
     fetchConfig();
   }, []);
@@ -70,10 +74,6 @@ const Reports = () => {
       alert("Error deleting report");
     }
   };
-
-  useEffect(() => {
-    fetchReports();
-  }, []);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-black to-gray-800 text-white p-10">
