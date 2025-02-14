@@ -1,19 +1,29 @@
 // src/Login.js
-import React, { useState } from 'react';
+import React, { useState, useEffect }  from 'react';
 import axios from 'axios';
-import '../assets/styles/Login.css'
+import '../assets/styles/Login.css';
+import loadRuntimeConfig  from '../components/config';
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+  const [BASE_URL, setBackendUrl] = useState("");
+
+  useEffect(() => {
+    const fetchConfig = async () => {
+      const config = await loadRuntimeConfig();
+      setBackendUrl(config.REACT_APP_BACKEND_URL);
+    };
+    fetchConfig();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
-
+  console.log(`${BASE_URL}`);
     try {
-       const response = await axios.post(`https://python-rag-app-369543119888.us-central1.run.app/token`, new URLSearchParams({
+       const response = await axios.post(`${BASE_URL}/token`, new URLSearchParams({
          username,
          password,
        }), {

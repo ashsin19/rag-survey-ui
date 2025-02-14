@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // Icons for menu and close
 import "../assets/styles/Navbar.css"
@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="animated-bg fixed w-full z-10 text-white">
+    <nav className="animated-bg sticky w-full z-10 text-white">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <div className="text-2xl font-bold text-blue-600">
@@ -87,6 +87,17 @@ const Navbar = () => {
             onClick={() => setMenuOpen(false)}
           >
             Reports
+          </NavLink>
+          <NavLink
+            to="/vecstore"
+            className={({ isActive }) =>
+                `transition-colors text-white bg-transparent hover:bg-opacity-20 hover:bg-black rounded px-4 py-2 ${
+                  isActive ? "text-gray-200" : "text-white"
+                }`
+              }
+            onClick={() => setMenuOpen(false)}
+          >
+            Vector Stores
           </NavLink>
         </div>
       </div>

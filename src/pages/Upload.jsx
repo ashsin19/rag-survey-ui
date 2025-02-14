@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
+import loadRuntimeConfig  from '../components/config';
 
 const Upload = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+  const [BASE_URL, setBackendUrl] = useState("");
+
+  useEffect(() => {
+    const fetchConfig = async () => {
+      const config = await loadRuntimeConfig();
+      setBackendUrl(config.REACT_APP_BACKEND_URL);
+    };
+    fetchConfig();
+  }, []);
 
   const handleUpload = async () => {
     if (!file) return alert("Please select a file first.");
@@ -13,7 +22,7 @@ const Upload = () => {
     setLoading(true);
     
     try {
-      const res = await fetch(`https://python-rag-app-369543119888.us-central1.run.app/upload/`, {
+      const res = await fetch(`${BASE_URL}/upload/`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}` // Add token here

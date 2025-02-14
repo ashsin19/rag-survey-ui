@@ -3,6 +3,7 @@ import Upload from "./pages/Upload";
 import Query from "./pages/Query";
 import Compare from "./pages/Compare";
 import Reports from "./pages/ListReport";
+import VectorstoreList from './pages/VectorStore'
 import Navbar from "./components/Navbar"
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -13,15 +14,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Router>
     <Navbar />
-      <div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/query" element={<Query />} />
         <Route path="/compare" element={<Compare />} />
         <Route path="/reports" element={< Reports />} />
+        <Route path="/vecstore" element={< VectorstoreList />} />
       </Routes>
-      </div>  
     </Router>
   </React.StrictMode>
 );

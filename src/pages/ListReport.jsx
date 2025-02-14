@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from "react";
+import loadRuntimeConfig  from '../components/config';
 
 const Reports = () => {
   const [reports, setReports] = useState([]);
   const [error, setError] = useState("");
 
+  const [BASE_URL, setBackendUrl] = useState("");
+  
+  useEffect(() => {
+    const fetchConfig = async () => {
+      const config = await loadRuntimeConfig();
+      setBackendUrl(config.REACT_APP_BACKEND_URL);
+    };
+    fetchConfig();
+  }, []);
+
   const fetchReports = async () => {
+    console.log('Fetching reports...');
     try {
       const token = localStorage.getItem("token");  // Retrieve token from local storage
       if (!token) throw new Error("No token found");
-  
-      const response = await fetch("https://python-rag-app-369543119888.us-central1.run.app/reports/", {
+      const response = await fetch(`https://python-rag-app-369543119888.us-central1.run.app/reports/`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -74,7 +85,7 @@ const Reports = () => {
               key={index}
               className="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow"
             >
-              <h3 className="text-lg font-semibold text-yellow-400 mb-2">{report}</h3>
+              <h3 className="text-lg font-semibold text-yellow-400 mb-2 truncate overflow-hidden text-ellipsis"  title={report}>{report}</h3>
               <p className="text-sm text-gray-300 mb-4">
                 Uploaded document available for analysis.
               </p>
