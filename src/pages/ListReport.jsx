@@ -17,10 +17,11 @@ const Reports = () => {
 
   const fetchReports = async () => {
     console.log('Fetching reports...');
+    console.log(`${BASE_URL}`)
     try {
       const token = localStorage.getItem("token");  // Retrieve token from local storage
       if (!token) throw new Error("No token found");
-      const response = await fetch(`https://python-rag-app-369543119888.us-central1.run.app/reports/`, {
+      const response = await fetch(`${BASE_URL}/reports/`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -50,7 +51,7 @@ const Reports = () => {
     }
     try {
       const response = await fetch(
-        `https://python-rag-app-369543119888.us-central1.run.app/reports/${filename}`,
+        `${BASE_URL}/reports/${filename}`,
         {
           method: "DELETE",
           headers: {
