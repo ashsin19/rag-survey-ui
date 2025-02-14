@@ -14,7 +14,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Router>
     <Navbar />
-      <div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/upload" element={<Upload />} />
@@ -23,7 +22,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/reports" element={< Reports />} />
         <Route path="/vecstore" element={< VectorstoreList />} />
       </Routes>
-      </div>  
     </Router>
   </React.StrictMode>
 );

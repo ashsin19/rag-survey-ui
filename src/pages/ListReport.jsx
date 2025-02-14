@@ -85,7 +85,7 @@ const Reports = () => {
               key={index}
               className="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow"
             >
-              <h3 className="text-lg font-semibold text-yellow-400 mb-2">{report}</h3>
+              <h3 className="text-lg font-semibold text-yellow-400 mb-2 truncate overflow-hidden text-ellipsis"  title={report}>{report}</h3>
               <p className="text-sm text-gray-300 mb-4">
                 Uploaded document available for analysis.
               </p>
