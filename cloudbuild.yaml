@@ -21,6 +21,12 @@ steps:
 # image below and it will automatically be uploaded to Google Cloud Container
 # Registry.
 
+- name: 'docker'
+  args: [
+    'push',
+    'gcr.io/$PROJECT_ID/my-react-app:$SHORT_SHA'
+  ]
+
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   args: [
         'gcloud', 'run', 'deploy', 'my-react-app',
