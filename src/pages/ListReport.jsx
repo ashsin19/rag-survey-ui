@@ -55,7 +55,7 @@ const Reports = () => {
     }
     try {
       const response = await fetch(
-        `${BASE_URL}/${filename}`,
+        `${BASE_URL}/reports/${filename}`,
         {
           method: "DELETE",
           headers: {
