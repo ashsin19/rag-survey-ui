@@ -66,7 +66,7 @@ const Reports = () => {
       );
       if (response.ok) {
         alert(`Report '${filename}' deleted successfully.`);
-        fetchReports();
+        fetchReports(`${BASE_URL}`);
       } else {
         alert("Failed to delete report");
       }
