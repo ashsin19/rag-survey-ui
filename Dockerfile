@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json ./
 RUN npm install
 RUN npm install -g vite
-RUN npm install framer-motion
+RUN npm install framer-motion react-icons
 
 COPY . .
 
