@@ -57,7 +57,7 @@ const Comparison = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-black to-gray-800 text-white p-10">
+    <div className="min-h-[90vh] flex flex-col items-center justify-center bg-gradient-to-br from-black to-gray-800 text-white p-10">
       <h2 className="text-2xl font-bold">Compare Reports</h2>
 
       <input
