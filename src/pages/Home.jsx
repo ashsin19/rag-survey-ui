@@ -17,9 +17,17 @@ const Home = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
+      const token = localStorage.getItem("token");  // Retrieve token from local storage
+      if (!token) throw new Error("No token found");
       setLoading(true);
       try {
-        const response = await fetch("https://https://python-rag-app-369543119888.us-central1.run.app/stats/");
+        const response = await fetch("https://https://python-rag-app-369543119888.us-central1.run.app/stats/",{
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
         if (!response.ok) throw new Error("Failed to fetch stats");
         const data = await response.json();
         setStats({
@@ -32,8 +40,11 @@ const Home = () => {
       }
       setLoading(false);
     };
-
-    fetchStats();
+    useEffect(() => {
+      if (isLoggedIn) {
+        fetchStats();
+      }
+    }, [isLoggedIn]);
   }, []);
 
   const cardVariants = {
