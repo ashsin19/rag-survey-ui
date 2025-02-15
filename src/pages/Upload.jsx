@@ -6,6 +6,7 @@ const Upload = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [BASE_URL, setBackendUrl] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchConfig = async () => {
@@ -16,10 +17,18 @@ const Upload = () => {
   }, []);
 
   const handleUpload = async () => {
-    if (!file) return alert("Please select a file first.");
+    if (!file){
+      setError("Please select a file before uploading.");
+      return;
+    } 
+    const fileSizeInMB = file.size / (1024 * 1024);
+    if (fileSizeInMB > 8) {
+      alert("File size exceeds the 8MB limit. Please upload a smaller file.");
+      return;
+    }
     const formData = new FormData();
     formData.append("file", file);
-    console.log(formData);
+    setError("");
     setLoading(true);
     
     try {
