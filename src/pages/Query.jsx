@@ -8,6 +8,7 @@ const Query = () => {
   const [BASE_URL, setBackendUrl] = useState("");
   const [summary, setSummary] = useState("");
   const [answer, setAnswer] = useState("");
+  const [wordCloud, setWordCloud] = useState("");
   const [documents, setDocuments] = useState([]);
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const Query = () => {
       setSummary(data.summary || "No summary available.");
       setAnswer(data.answer || "No answer available.");
       setDocuments(data.documents || []);
+      setWordCloud(data.summary_wordcloud);
     } catch (error) {
       console.error("Query error:", error);
       alert("An error occurred while querying.");
@@ -110,7 +112,7 @@ const Query = () => {
       <h3 className="text-2xl font-semibold text-green-400">Answer</h3>
       <p className="mt-4 text-gray-300">{answer || "No answer found."}</p>
     </div>
-
+    
     <div className="bg-gray-900 p-6 rounded-lg shadow-lg">
       <h3 className="text-2xl font-semibold text-blue-400">Documents</h3>
       {documents.length > 0 ? (
@@ -131,6 +133,18 @@ const Query = () => {
         <p className="mt-4 text-gray-300">No documents found.</p>
       )}
     </div>
+    <div className="mt-6 w-2/3 bg-gray-900 p-4 rounded-lg shadow-lg">
+        <h3 className="text-lg font-semibold">Word Cloud</h3>
+        {wordCloud ? (
+          <img
+            src={`data:image/png;base64,${wordCloud}`}
+            alt="Word Cloud"
+            className="mt-4 rounded-lg shadow-lg"
+          />
+        ) : (
+          <p className="mt-2 text-gray-300">No word cloud available.</p>
+        )}
+      </div>
   </div>
 </div>
   );
