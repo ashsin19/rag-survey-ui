@@ -1,9 +1,9 @@
 import React, { useState , useEffect } from "react";
+import { motion } from "framer-motion";
 import loadRuntimeConfig  from '../components/config';
 
 const Query = () => {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [BASE_URL, setBackendUrl] = useState("");
   const [summary, setSummary] = useState("");
@@ -42,54 +42,97 @@ const Query = () => {
   };
 
   return (
-    <div className="min-h-[90vh] flex flex-col items-center justify-center bg-gradient-to-br from-black to-gray-800 text-white p-10">
-      <h2 className="text-3xl font-bold mb-4">Query Reports</h2>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Enter query..."
-        className="mt-4 p-2 w-2/3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
-        style={{ color: "black" }}
-      />
-      <button
-        onClick={handleQuery}
-        className={`mt-4 p-2 w-1/4 bg-green-500 text-white rounded-md hover:bg-green-600 transition ${
-          loading ? "opacity-50 cursor-not-allowed" : ""
-        }`}
-        disabled={loading}
-      >
-        {loading ? "Searching..." : "Search"}
-      </button>
+<div className="min-h-[90vh] flex flex-col items-center bg-gradient-to-br from-black to-gray-800 text-white p-10">
+  <motion.h2
+    className="text-4xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-blue-500 to-purple-600"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 1 }}
+  >
+    Query Reports
+  </motion.h2>
 
-      <div className="mt-6 w-2/3 bg-gray-900 p-4 rounded-lg shadow-lg">
-        <h3 className="text-lg font-semibold">Summary</h3>
-        <p className="mt-2 text-gray-300">{summary}</p>
-      </div>
+  <div className="w-full max-w-2xl">
+    <label className="block text-sm font-medium text-gray-300">Enter your query</label>
+    <input
+      type="text"
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      placeholder="Enter query..."
+      className="mt-2 p-3 w-full text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+    />
+    <motion.button
+      onClick={handleQuery}
+      className={`mt-4 w-full bg-green-500 text-white py-3 font-bold rounded-lg shadow-lg hover:bg-green-600 transition ${
+        loading ? "opacity-50 cursor-not-allowed" : ""
+      }`}
+      whileHover={!loading ? { scale: 1.05 } : {}}
+      whileTap={{ scale: 0.95 }}
+      disabled={loading}
+    >
+      {loading ? (
+        <div className="flex items-center justify-center">
+          <svg
+            className="animate-spin h-5 w-5 mr-2 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8v8h8a8 8 0 01-16 0z"
+            ></path>
+          </svg>
+          Searching...
+        </div>
+      ) : (
+        "Search"
+      )}
+    </motion.button>
+  </div>
 
-      <div className="mt-6 w-2/3 bg-gray-900 p-4 rounded-lg shadow-lg">
-        <h3 className="text-lg font-semibold">Answer</h3>
-        <p className="mt-2 text-gray-300">{answer}</p>
-      </div>
-
-      <div className="mt-6 w-2/3">
-        <h3 className="text-lg font-semibold">Documents</h3>
-        {documents.length > 0 ? (
-          <div className="mt-2 bg-gray-900 p-4 rounded-lg shadow-lg">
-            {documents.map((doc, idx) => (
-              <div
-                key={idx}
-                className="p-2 border-b border-gray-700 text-gray-300"
-              >
-                {doc}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="mt-2 text-gray-300">No documents found.</p>
-        )}
-      </div>
+  <div className="mt-10 w-full max-w-3xl">
+    <div className="mb-6 bg-gray-900 p-6 rounded-lg shadow-lg">
+      <h3 className="text-2xl font-semibold text-yellow-400">Summary</h3>
+      <p className="mt-4 text-gray-300">{summary || "No summary available."}</p>
     </div>
+
+    <div className="mb-6 bg-gray-900 p-6 rounded-lg shadow-lg">
+      <h3 className="text-2xl font-semibold text-green-400">Answer</h3>
+      <p className="mt-4 text-gray-300">{answer || "No answer found."}</p>
+    </div>
+
+    <div className="bg-gray-900 p-6 rounded-lg shadow-lg">
+      <h3 className="text-2xl font-semibold text-blue-400">Documents</h3>
+      {documents.length > 0 ? (
+        <div className="mt-4 space-y-4">
+          {documents.map((doc, idx) => (
+            <motion.div
+              key={idx}
+              className="p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 }}
+            >
+              <p className="text-gray-300">{doc}</p>
+            </motion.div>
+          ))}
+        </div>
+      ) : (
+        <p className="mt-4 text-gray-300">No documents found.</p>
+      )}
+    </div>
+  </div>
+</div>
   );
 };
 export default Query;
