@@ -55,7 +55,7 @@ const Home = () => {
       }
     };
     initialize();
-  }, [isLoggedIn, token, BASE_URL]);
+  }, [isLoggedIn, token]);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
