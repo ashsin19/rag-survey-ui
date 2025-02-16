@@ -7,7 +7,8 @@ import "../assets/styles/Navbar.css";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { isLoggedIn, handleLogout } = useContext(AuthContext); // Get auth state and logout function
+  const auth = useContext(AuthContext);
+  const { isLoggedIn, handleLogout } = auth; // Get auth state and logout function
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
