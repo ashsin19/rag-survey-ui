@@ -1,14 +1,14 @@
 // File: src/pages/Home.jsx
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { motion } from "framer-motion";
 import { FaUpload, FaSearch, FaChartBar } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import Login from './Login';
-import loadRuntimeConfig  from '../components/config';
+import { AuthContext } from "../context/AuthContext";
+import Login from "./Login";
+import loadRuntimeConfig from "../components/config";
 
 const Home = () => {
-  const { isLoggedIn, setIsLoggedIn, token } = useAuth();
+  const { isLoggedIn, token, handleLogout, checkTokenExpiration } = useContext(AuthContext);
   const [stats, setStats] = useState({
     reportsProcessed: 0,
     fastestQueryTime: "N/A",
@@ -17,15 +17,11 @@ const Home = () => {
   const [BASE_URL, setBackendUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => setIsLoggedIn(true);
-
-  const fetchStats = async (url) => {
+  const fetchStats = async () => {
+    if (!token) return;
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      if (!token) throw new Error("No token found");
-
-      const response = await fetch(`${url}/stats/`, {
+      const response = await fetch(`${BASE_URL}/stats/`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -48,14 +44,17 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const fetchConfig = async () => {
+    const initialize = async () => {
       const config = await loadRuntimeConfig();
       setBackendUrl(config.REACT_APP_BACKEND_URL);
+
+      if (token && !checkTokenExpiration()) {
+        handleLogout(); // Automatically log out if the token has expired
+      } else if (isLoggedIn && token) {
+        fetchStats(); // Fetch stats if the user is logged in and the token is valid
+      }
     };
-    fetchConfig();
-    if (isLoggedIn && token) {
-      fetchStats(`${BASE_URL}`);
-    }
+    initialize();
   }, [isLoggedIn, token, BASE_URL]);
 
   const cardVariants = {
@@ -162,7 +161,7 @@ const Home = () => {
           </motion.nav>
         </div>
       ) : (
-        <Login onLogin={handleLogin} />
+        <Login />
       )}
     </div>
   );
