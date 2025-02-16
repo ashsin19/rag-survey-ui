@@ -1,4 +1,5 @@
 import React, { useState , useEffect } from "react";
+import { motion } from "framer-motion";
 import loadRuntimeConfig  from '../components/config';
 
 const Comparison = () => {
@@ -58,55 +59,76 @@ const Comparison = () => {
 
   return (
     <div className="min-h-[90vh] flex flex-col items-center justify-center bg-gradient-to-br from-black to-gray-800 text-white p-10">
-      <h2 className="text-2xl font-bold">Compare Reports</h2>
+      <motion.h2
+        className="text-3xl font-bold mb-6 text-center"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        Compare Reports
+      </motion.h2>
 
-      <input
+      <motion.input
         type="text"
         placeholder="Enter query..."
-        className="mt-4 p-2 border"
+        className="mt-2 p-3 w-2/3 bg-gray-900 text-white border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
         value={query}
-        style={{color:"black"}}
         onChange={(e) => setQuery(e.target.value)}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
       />
 
-      <button
+      <motion.button
         onClick={handleCompare}
-        className="bg-blue-500 text-white px-4 py-2 rounded"
+        className={`mt-4 px-6 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-500 transition ${
+          loading ? "opacity-50 cursor-not-allowed" : ""
+        }`}
         disabled={loading}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
-        {loading ? "Loading..." : "Compare"}
-      </button>
+        {loading ? "Comparing..." : "Compare"}
+      </motion.button>
 
       {error && <p className="text-red-500 mt-4">{error}</p>}
 
       {results && (
-        <div className="mt-6">
-          <h3 className="text-xl font-semibold">Comparison Results</h3>
-          {results.length === 0 ? (
-            <p className="text-gray-500">No comparisons found.</p>
-          ) : (
-            results.map((result, index) => (
-              <div key={index} className="border p-4 mt-4 rounded shadow">
-                <h4 className="font-bold">
-                  {result.report_1} vs {result.report_2}
-                </h4>
-                <div className="mt-2">
-                  <h5 className="font-semibold">Common Insights:</h5>
-                  {result.comparison.common_insights.length > 0 ? (
-                    <ul className="list-disc list-inside">
-                      {result.comparison.common_insights.map((insight, i) => (
-                        <li key={i}>{insight}</li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="text-gray-500">No common insights found.</p>
-                  )}
-                </div>
+        <motion.div
+          className="mt-10 w-full max-w-4xl space-y-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          {results.map((result, index) => (
+            <motion.div
+              key={index}
+              className="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition"
+              whileHover={{ scale: 1.02 }}
+            >
+              <h4 className="text-xl font-bold mb-2">
+                {result.report_1} vs {result.report_2}
+              </h4>
 
-                <div className="mt-2">
-                  <h5 className="font-semibold">Unique to {result.report_1}:</h5>
-                  {result.comparison.unique_in_report_1.length > 0 ? (
-                  <ul className="list-disc list-inside">
+              <div className="mt-4">
+                <h5 className="text-lg font-semibold text-green-400">Common Insights:</h5>
+                {result.comparison.common_insights.length > 0 ? (
+                  <ul className="list-disc list-inside text-gray-300 mt-2">
+                    {result.comparison.common_insights.map((insight, i) => (
+                      <li key={i}>{insight}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-gray-500">No common insights found.</p>
+                )}
+              </div>
+
+              <div className="mt-4">
+                <h5 className="text-lg font-semibold text-blue-400">
+                  Unique to {result.report_1}:
+                </h5>
+                {result.comparison.unique_in_report_1.length > 0 ? (
+                  <ul className="list-disc list-inside text-gray-300 mt-2">
                     {result.comparison.unique_in_report_1.map((item, i) => (
                       <li key={i}>{item}</li>
                     ))}
@@ -114,12 +136,14 @@ const Comparison = () => {
                 ) : (
                   <p className="text-gray-500">No unique insights found.</p>
                 )}
-                </div>
+              </div>
 
-                <div className="mt-2">
-                  <h5 className="font-semibold">Unique to {result.report_2}:</h5>
-                  {result.comparison.unique_in_report_2.length > 0 ? (
-                  <ul className="list-disc list-inside">
+              <div className="mt-4">
+                <h5 className="text-lg font-semibold text-purple-400">
+                  Unique to {result.report_2}:
+                </h5>
+                {result.comparison.unique_in_report_2.length > 0 ? (
+                  <ul className="list-disc list-inside text-gray-300 mt-2">
                     {result.comparison.unique_in_report_2.map((item, i) => (
                       <li key={i}>{item}</li>
                     ))}
@@ -127,11 +151,10 @@ const Comparison = () => {
                 ) : (
                   <p className="text-gray-500">No unique insights found.</p>
                 )}
-                </div>
               </div>
-            ))
-          )}
-        </div>
+            </motion.div>
+          ))}
+        </motion.div>
       )}
     </div>
   );

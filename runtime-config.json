@@ -1,1 +1,1 @@
-{ "REACT_APP_BACKEND_URL": "https://python-rag-app-369543119888.us-central1.run.app" }
+{ "REACT_APP_BACKEND_URL": "https://python-rag-app-369543119888.us-central1.run.app","ENVIRONMENT":"PROD" }
