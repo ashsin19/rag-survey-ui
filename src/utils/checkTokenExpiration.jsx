@@ -1,4 +1,4 @@
-// src/utils/checkTokenExpiration.js
+// src/utils/checkTokenExpiration.jsx
 export const checkTokenExpiration = (token) => {
     try {
       // Split the token and decode the payload (second part)
