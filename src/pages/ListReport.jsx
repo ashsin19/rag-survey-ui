@@ -21,7 +21,6 @@ const Reports = () => {
 
   const fetchReports = async (url) => {
     console.log('Fetching reports...');
-    console.log(`${url}`)
     try {
       const token = localStorage.getItem("token");  // Retrieve token from local storage
       if (!token) throw new Error("No token found");
@@ -39,7 +38,6 @@ const Reports = () => {
       }
   
       const data = await response.json();
-      // console.log(data.reports);
       setReports(data.reports || [])
     } catch (error) {
       console.error("Error fetching reports:", error);

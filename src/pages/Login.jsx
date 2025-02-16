@@ -21,7 +21,6 @@ const Login = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
-  console.log(`${BASE_URL}`);
     try {
        const response = await axios.post(`${BASE_URL}/token`, new URLSearchParams({
          username,

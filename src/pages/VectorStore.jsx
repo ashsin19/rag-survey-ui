@@ -20,7 +20,6 @@ const VectorstoreList = () => {
         throw new Error(`Failed to fetch vectorstores: ${response.statusText}`);
       }
       const data = await response.json();
-      console.log('Available vectorstores:', data.vectorstores);
       setVectorstores(data.vectorstores);
     } catch (error) {
       console.error('Error fetching vectorstores:', error);

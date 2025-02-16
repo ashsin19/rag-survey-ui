@@ -12,17 +12,18 @@ const Home = () => {
     fastestQueryTime: "N/A",
     comparisonCount: 0,
   });
+  const [BASE_URL, setBackendUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = () => setIsLoggedIn(true);
 
-  const fetchStats = async () => {
+  const fetchStats = async (url) => {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
 
-      const response = await fetch("https://python-rag-app-369543119888.us-central1.run.app/stats/", {
+      const response = await fetch(`${url}/stats/`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -45,8 +46,13 @@ const Home = () => {
   };
 
   useEffect(() => {
+    const fetchConfig = async () => {
+      const config = await loadRuntimeConfig();
+      setBackendUrl(config.REACT_APP_BACKEND_URL);
+    };
+    fetchConfig();
     if (isLoggedIn) {
-      fetchStats();
+      fetchStats(`${BASE_URL}`);
     }
   }, [isLoggedIn]);
 
