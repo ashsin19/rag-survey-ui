@@ -40,14 +40,12 @@ const Comparison = () => {
       });
 
       const text = await response.text(); // Debugging: Capture raw response
-      console.log("Raw Response:", text);
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
 
       const data = JSON.parse(text);
-      console.log("Parsed JSON:", data);
       setResults(data.comparisons);
     } catch (error) {
       console.error("Fetch Error:", error);
