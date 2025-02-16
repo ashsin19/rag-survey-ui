@@ -6,7 +6,7 @@ import '../assets/styles/Login.css';
 import loadRuntimeConfig  from '../components/config';
 
 const Login = ({ onLogin }) => {
-  const [username, setLocalUsername] = useState("");
+  const [localUsername, setLocalUsername] = useState("");
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [BASE_URL, setBackendUrl] = useState("");
@@ -25,8 +25,8 @@ const Login = ({ onLogin }) => {
     setMessage('');
     try {
        const response = await axios.post(`${BASE_URL}/token`, new URLSearchParams({
-         username,
-         password,
+        username: localUsername,
+        password,
        }), {
          headers: {
            'Content-Type': 'application/x-www-form-urlencoded',
@@ -35,10 +35,10 @@ const Login = ({ onLogin }) => {
 
        const { access_token } = response.data;
        localStorage.setItem('token', access_token); // Save the token in localStorage
-       localStorage.setItem('username',username)
+       localStorage.setItem("username", localUsername)
        setIsLoggedIn(true);
        setToken(access_token);
-       setUsername(username);
+       setUsername(localUsername);
       onLogin();
       setMessage('Login successful!');
     } catch (error) {
@@ -55,8 +55,8 @@ const Login = ({ onLogin }) => {
           <label>Username:</label>
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={localUsername}
+            onChange={(e) => setLocalUsername(e.target.value)}
             required
           />
         </div>
