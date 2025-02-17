@@ -6,11 +6,9 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Login from "./Login";
 import loadRuntimeConfig from "../components/config";
-import { checkTokenExpiration } from "../utils/checkTokenExpiration";
-
 
 const Home = () => {
-  const { isLoggedIn, token, handleLogout} = useContext(AuthContext);
+  const { isLoggedIn, token, handleLogout, checkTokenExpiration } = useContext(AuthContext);
   const [stats, setStats] = useState({
     reportsProcessed: 0,
     fastestQueryTime: "N/A",
@@ -61,14 +59,14 @@ const Home = () => {
           handleLogout();
         } else if (isLoggedIn && token) {
           console.log("📊 Fetching stats...");
-          fetchStats();
+          fetchStats(); // Ensure BASE_URL is not in dependencies to prevent infinite loops
         }
       } catch (error) {
         console.error("❌ Error during initialization:", error);
       }
     };
     initialize();
-  }, [isLoggedIn, token,BASE_URL]);
+  }, [isLoggedIn, token]);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
