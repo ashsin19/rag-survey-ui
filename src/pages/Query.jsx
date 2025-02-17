@@ -1,6 +1,8 @@
 import React, { useState , useEffect } from "react";
 import { motion } from "framer-motion";
 import loadRuntimeConfig  from '../components/config';
+import { useAuth } from "../context/AuthContext"; 
+import { useNavigate } from "react-router-dom";
 
 const Query = () => {
   const [query, setQuery] = useState("");
@@ -10,6 +12,8 @@ const Query = () => {
   const [answer, setAnswer] = useState("");
   const [wordCloud, setWordCloud] = useState("");
   const [documents, setDocuments] = useState([]);
+  const { isLoggedIn, token } = useAuth(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchConfig = async () => {
@@ -19,6 +23,12 @@ const Query = () => {
     fetchConfig();
   }, []);
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
+
   const handleQuery = async () => {
     if (!query) return;
     setLoading(true);
@@ -27,7 +37,7 @@ const Query = () => {
         method: "POST",
         headers: { 
           "Content-Type": "application/json"
-          ,Authorization: `Bearer ${localStorage.getItem('token')}`
+          ,Authorization: `Bearer ${token}`
          },
         body: JSON.stringify({ query }),
       });

@@ -1,12 +1,16 @@
 import React, { useState , useEffect } from "react";
 import loadRuntimeConfig  from '../components/config';
 import { motion } from "framer-motion";
+import { useAuth } from "../context/AuthContext"; 
+import { useNavigate } from "react-router-dom"; 
 
 const Upload = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [BASE_URL, setBackendUrl] = useState("");
   const [error, setError] = useState("");
+  const { isLoggedIn, token } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchConfig = async () => {
@@ -15,6 +19,12 @@ const Upload = () => {
     };
     fetchConfig();
   }, []);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/"); // Redirect to home/login
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleUpload = async () => {
     if (!file){
@@ -35,7 +45,7 @@ const Upload = () => {
       const res = await fetch(`${BASE_URL}/upload/`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}` // Add token here
+          Authorization: `Bearer ${token}` // Add token here
         },
         body: formData,
       });
