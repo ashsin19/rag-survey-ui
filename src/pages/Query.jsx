@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import loadRuntimeConfig  from '../components/config';
 import { useAuth } from "../context/AuthContext"; 
 import { useNavigate } from "react-router-dom";
+import { checkTokenExpiration } from "../utils/checkTokenExpiration";
 
 const Query = () => {
   const [query, setQuery] = useState("");
@@ -31,6 +32,11 @@ const Query = () => {
 
   const handleQuery = async () => {
     if (!query) return;
+    if (checkTokenExpiration(token)) {
+          alert("Token expired. Logging out...");
+          handleLogout();
+          return;
+        }
     setLoading(true);
     try {
       const res = await fetch(`${BASE_URL}/query/`, {

@@ -1,6 +1,7 @@
 // src/context/AuthContext.jsx
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { checkTokenExpiration } from "../utils/checkTokenExpiration";
 
 const AuthContext = createContext();
 
@@ -17,12 +18,23 @@ export const AuthProvider = ({ children }) => {
     const storedToken = localStorage.getItem("token");
     const storedUsername = localStorage.getItem("username");
 
-    if (storedToken) {
+    if (storedToken && !checkTokenExpiration(storedToken)) {
       setIsLoggedIn(true);
       setToken(storedToken);
       setUsername(storedUsername || "");
     }
-  }, []);
+    else {
+      handleLogout();
+    }
+    const interval = setInterval(() => {
+      if (token && checkTokenExpiration(token)) {
+        console.warn("🚨 Token expired. Logging out...");
+        handleLogout();
+      }
+    }, 300000); // 5 minutes
+
+    return () => clearInterval(interval);
+  }, [token]);
 
   const handleLogin = (username, token) => {
     localStorage.setItem("token", token);

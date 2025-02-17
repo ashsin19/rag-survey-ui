@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import Login from './Login';
 import loadRuntimeConfig  from '../components/config';
 import { useAuth } from "../context/AuthContext";
+import { checkTokenExpiration } from "../utils/checkTokenExpiration";
 
 const Home = () => {
-  const { isLoggedIn, token, handleLogin } = useAuth();
+  const { isLoggedIn, token, handleLogin, handleLogout  } = useAuth();
   const [stats, setStats] = useState({
     reportsProcessed: 0,
     fastestQueryTime: "N/A",
@@ -17,20 +18,22 @@ const Home = () => {
   const [BASE_URL, setBackendUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-
-  useEffect(() => {
-
-  }, []);
-
   useEffect(() => {
     const fetchConfig = async () => {
       const config = await loadRuntimeConfig();
       setBackendUrl(config.REACT_APP_BACKEND_URL);
     };
     fetchConfig();
+  }, []);
 
+  useEffect(() => {
+    if (!isLoggedIn) return;
+    if (checkTokenExpiration(token)) {
+      alert("Token expired. Logging out...");
+      handleLogout();
+      return;
+    }
     const fetchStats = async (url) => {
-      if (!isLoggedIn) return;
       setLoading(true);
       try {
         const token = localStorage.getItem("token");
@@ -61,7 +64,8 @@ const Home = () => {
     if (isLoggedIn) {
       fetchStats(`${BASE_URL}`);
     }
-  }, [isLoggedIn, BASE_URL]);
+
+  },[isLoggedIn,BASE_URL,token,handleLogout])
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
