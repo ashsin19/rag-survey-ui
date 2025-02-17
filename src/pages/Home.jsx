@@ -26,8 +26,6 @@ const Home = () => {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
-          "Cache-Control": "no-cache",
-          "Pragma": "no-cache",
         },
       });
 
@@ -47,22 +45,13 @@ const Home = () => {
 
   useEffect(() => {
     const initialize = async () => {
-      try {
-        console.log("⏳ Fetching runtime config...");
-        const config = await loadRuntimeConfig();
-        console.log("✅ Config Loaded:", config);
-        
-        setBackendUrl(config.REACT_APP_BACKEND_URL);
-  
-        if (token && checkTokenExpiration(token)) {
-          console.warn("🚨 Token expired. Logging out...");
-          handleLogout();
-        } else if (isLoggedIn && token) {
-          console.log("📊 Fetching stats...");
-          fetchStats(); // Ensure BASE_URL is not in dependencies to prevent infinite loops
-        }
-      } catch (error) {
-        console.error("❌ Error during initialization:", error);
+      const config = await loadRuntimeConfig();
+      setBackendUrl(config.REACT_APP_BACKEND_URL);
+
+      if (token && !checkTokenExpiration(token)) {
+        handleLogout(); // Automatically log out if the token has expired
+      } else if (isLoggedIn && token) {
+        fetchStats(); // Fetch stats if the user is logged in and the token is valid
       }
     };
     initialize();
