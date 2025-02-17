@@ -19,22 +19,24 @@ const Home = () => {
 
 
   useEffect(() => {
+
+  }, []);
+
+  useEffect(() => {
     const fetchConfig = async () => {
       const config = await loadRuntimeConfig();
       setBackendUrl(config.REACT_APP_BACKEND_URL);
     };
     fetchConfig();
-  }, []);
 
-  useEffect(() => {
-    const fetchStats = async () => {
+    const fetchStats = async (url) => {
       if (!isLoggedIn) return;
       setLoading(true);
       try {
         const token = localStorage.getItem("token");
         if (!token) throw new Error("No token found");
 
-        const response = await fetch(`${BASE_URL}/stats/`, {
+        const response = await fetch(`${url}/stats/`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`,
@@ -57,7 +59,7 @@ const Home = () => {
     };
 
     if (isLoggedIn) {
-      fetchStats();
+      fetchStats(`${BASE_URL}`);
     }
   }, [isLoggedIn, BASE_URL]);
 
