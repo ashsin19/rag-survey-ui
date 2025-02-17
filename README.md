@@ -90,7 +90,10 @@ yarn install
 To start the React application locally:
 npm run dev
 
+5. Security
 
-DEPLOYMENT
+The integration with backend is supported by JWT tokens. Any fetch calls will have the associated token and if the token is not valid, then the call wouldn't receive a response. In addition to that, we are checking for valid token in authcontext every 5 mins. As soon as the token expires, the user is logged out and has to authenticate and obtain a new token.
 
-For deployment to cloud build, it is important that we set up a trigger to the frontend repo. In the cloudbuild.yaml, we will tag the image with ${SHORT_SHA} and this will be replaced with the associated value by cloud build on execution. This is done to ensure that the latest image is selected for deployment 
+6. DEPLOYMENT
+
+For deployment to cloud build, it is important that we set up a trigger to the frontend repo. In the cloudbuild.yaml, we will tag the image with ${SHORT_SHA} and this will be replaced with the associated value by cloud build on execution. This is done to ensure that the latest image is selected for deployment.
