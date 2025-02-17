@@ -42,6 +42,7 @@ const Home = () => {
       console.error("Error fetching stats:", error);
     }
     setLoading(false);
+    console.log("First Function");
   };
 
   useEffect(() => {
@@ -76,6 +77,7 @@ const Home = () => {
           fastestQueryTime: data.fastestQueryTime,
           comparisonCount: data.comparisonCount,
         });
+        console.log("Second Function");
       } catch (error) {
         console.error("Error fetching stats:", error);
       }
