@@ -1,6 +1,8 @@
 import React, { useState , useEffect } from "react";
 import { motion } from "framer-motion";
 import loadRuntimeConfig  from '../components/config';
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom"
 
 const Comparison = () => {
   const [query, setQuery] = useState("");
@@ -8,6 +10,8 @@ const Comparison = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [BASE_URL, setBackendUrl] = useState("");
+  const { isLoggedIn, token } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchConfig = async () => {
@@ -16,13 +20,17 @@ const Comparison = () => {
     };
     fetchConfig();
   }, []);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/"); // Redirect to home/login
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleCompare = async () => {
     setLoading(true);
     setError(null);
     setResults(null);
-
-    const token = localStorage.getItem("token"); // Ensure token is stored in localStorage
+    
     if (!token) {
       setError("You must be logged in to view comparisons.");
       setLoading(false);

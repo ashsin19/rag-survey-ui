@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
 import loadRuntimeConfig  from '../components/config';
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom"
 
 const Reports = () => {
   const [reports, setReports] = useState([]);
   const [error, setError] = useState("");
-
+  const { isLoggedIn, token } = useAuth();
+  const navigate = useNavigate();
   const [BASE_URL, setBackendUrl] = useState("");
   
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
+
   useEffect(() => {
     const fetchConfig = async () => {
       const config = await loadRuntimeConfig();
@@ -17,12 +26,11 @@ const Reports = () => {
 
     };
     fetchConfig();
-  }, []);
+  }, [token]);
 
   const fetchReports = async (url) => {
     console.log('Fetching reports...');
     try {
-      const token = localStorage.getItem("token");  // Retrieve token from local storage
       if (!token) throw new Error("No token found");
       const response = await fetch(`${url}/reports/`, {
         method: "GET",
