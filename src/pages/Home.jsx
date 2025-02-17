@@ -17,33 +17,6 @@ const Home = () => {
   const [BASE_URL, setBackendUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const fetchStats = async (url) => {
-    setLoading(true);
-    try {
-      if (!token) throw new Error("No token found");
-
-      const response = await fetch(`${url}/stats/`, {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) throw new Error("Failed to fetch stats");
-
-      const data = await response.json();
-      setStats({
-        reportsProcessed: data.reportsProcessed,
-        fastestQueryTime: data.fastestQueryTime,
-        comparisonCount: data.comparisonCount,
-      });
-    } catch (error) {
-      console.error("Error fetching stats:", error);
-    }
-    setLoading(false);
-    console.log("First Function");
-  };
 
   useEffect(() => {
     const fetchConfig = async () => {
@@ -77,7 +50,6 @@ const Home = () => {
           fastestQueryTime: data.fastestQueryTime,
           comparisonCount: data.comparisonCount,
         });
-        console.log("Second Function");
       } catch (error) {
         console.error("Error fetching stats:", error);
       }
