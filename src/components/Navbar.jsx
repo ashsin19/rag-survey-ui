@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // Icons for menu and close
 import "../assets/styles/Navbar.css"
 import { useAuth } from "../context/AuthContext";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
