@@ -91,7 +91,18 @@ const Navbar = () => {
             Reports
           </NavLink>
         </div>
-        {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
+        {isLoggedIn && (
+        <motion.button
+          onClick={handleLogout}
+          className="px-6 py-3 bg-red-600 text-white font-bold rounded-lg shadow-md 
+                    hover:bg-red-500 hover:shadow-lg transition-transform transform 
+                    hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          Logout
+        </motion.button>
+      )}
       </div>
     </nav>
   );
