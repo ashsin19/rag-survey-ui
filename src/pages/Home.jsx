@@ -5,9 +5,10 @@ import { FaUpload, FaSearch, FaChartBar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Login from './Login';
 import loadRuntimeConfig  from '../components/config';
+import { useAuth } from "../context/AuthContext";
 
 const Home = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn } = useAuth(); 
   const [stats, setStats] = useState({
     reportsProcessed: 0,
     fastestQueryTime: "N/A",
@@ -15,8 +16,6 @@ const Home = () => {
   });
   const [BASE_URL, setBackendUrl] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const handleLogin = () => setIsLoggedIn(true);
 
   const fetchStats = async (url) => {
     setLoading(true);
@@ -52,10 +51,42 @@ const Home = () => {
       setBackendUrl(config.REACT_APP_BACKEND_URL);
     };
     fetchConfig();
+  }, []);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      if (!isLoggedIn) return;
+      setLoading(true);
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) throw new Error("No token found");
+
+        const response = await fetch(`${BASE_URL}/stats/`, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch stats");
+
+        const data = await response.json();
+        setStats({
+          reportsProcessed: data.reportsProcessed,
+          fastestQueryTime: data.fastestQueryTime,
+          comparisonCount: data.comparisonCount,
+        });
+      } catch (error) {
+        console.error("Error fetching stats:", error);
+      }
+      setLoading(false);
+    };
+
     if (isLoggedIn) {
-      fetchStats(`${BASE_URL}`);
+      fetchStats();
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, BASE_URL]);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
