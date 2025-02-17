@@ -26,7 +26,7 @@ const Reports = () => {
 
     };
     fetchConfig();
-  }, [token]);
+  }, []);
 
   const fetchReports = async (url) => {
     console.log('Fetching reports...');
