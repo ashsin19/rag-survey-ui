@@ -1,16 +1,16 @@
 // src/Login.js
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useContext }  from 'react';
 import axios from 'axios';
 import '../assets/styles/Login.css';
 import loadRuntimeConfig  from '../components/config';
-import { useAuth } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [BASE_URL, setBackendUrl] = useState("");
-  const { handleLogin } = useAuth();
+  const { handleLogin } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchConfig = async () => {

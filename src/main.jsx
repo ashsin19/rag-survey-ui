@@ -12,8 +12,8 @@ import { AuthProvider } from "./context/AuthContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
     <Router>
+    <AuthProvider>
     <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -22,7 +22,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/compare" element={<Compare />} />
         <Route path="/reports" element={< Reports />} />
       </Routes>
+      </AuthProvider>
     </Router>
-    </AuthProvider>
+
   </React.StrictMode>
 );

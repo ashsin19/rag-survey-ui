@@ -8,7 +8,7 @@ import loadRuntimeConfig  from '../components/config';
 import { useAuth } from "../context/AuthContext";
 
 const Home = () => {
-  const { isLoggedIn } = useAuth(); 
+  const { isLoggedIn, token, handleLogin } = useAuth();
   const [stats, setStats] = useState({
     reportsProcessed: 0,
     fastestQueryTime: "N/A",
@@ -20,7 +20,6 @@ const Home = () => {
   const fetchStats = async (url) => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
 
       const response = await fetch(`${url}/stats/`, {
