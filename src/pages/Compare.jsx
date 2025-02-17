@@ -126,10 +126,10 @@ const Comparison = () => {
               <div className="mt-4">
                 <h5 className="text-lg font-semibold text-green-400">Common Insights:</h5>
                 {result.comparison.common_insights.length > 0 ? (
-                  <ul className="list-disc list-inside text-gray-300 mt-2">
+                  <ul className="grid grid-cols-3 gap-4 mt-2 text-gray-300">
                     {result.comparison.common_insights.map((insight, i) => (
-                      <li key={i}>{insight}</li>
-                    ))}
+                    <li key={i} className="bg-gray-700 px-3 py-1 rounded-md shadow-md">{insight}</li>
+                  ))}
                   </ul>
                 ) : (
                   <p className="text-gray-500">No common insights found.</p>
