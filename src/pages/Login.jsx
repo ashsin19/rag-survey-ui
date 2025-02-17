@@ -1,11 +1,11 @@
 // src/Login.js
 import React, { useState, useEffect }  from 'react';
-import { useAuth } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 import axios from 'axios';
 import '../assets/styles/Login.css';
 import loadRuntimeConfig  from '../components/config';
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [localUsername, setLocalUsername] = useState("");
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -37,6 +37,7 @@ const Login = () => {
        localStorage.setItem('token', access_token); // Save the token in localStorage
        localStorage.setItem("username", localUsername)
        handleLogin(localUsername, access_token);
+      onLogin();
       setMessage('Login successful!');
     } catch (error) {
       console.error('Error logging in:', error);
