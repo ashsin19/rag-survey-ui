@@ -52,7 +52,34 @@ const Navbar = () => {
             </NavLink>
           ))}
         </div>
+
+        {/* Logout Button (visible only if logged in) */}
+        {isLoggedIn && (
+          <motion.button
+            onClick={handleLogout}
+            className="hidden md:block bg-red-500 hover:bg-red-400 text-white px-6 py-2 rounded-lg transition"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            Logout
+          </motion.button>
+        )}
       </div>
+
+      {/* Logout Button (mobile version) */}
+      {isLoggedIn && menuOpen && (
+        <div className="block md:hidden mt-4">
+          <button
+            onClick={() => {
+              setMenuOpen(false);
+              handleLogout();
+            }}
+            className="w-full bg-red-500 hover:bg-red-400 text-white px-6 py-2 rounded-lg transition"
+          >
+            Logout
+          </button>
+        </div>
+      )}
     </nav>
   );
 };
