@@ -1,16 +1,14 @@
 // src/Login.js
 import React, { useState, useEffect }  from 'react';
-import { useAuth } from "../context/AuthContext";
 import axios from 'axios';
 import '../assets/styles/Login.css';
 import loadRuntimeConfig  from '../components/config';
 
-const Login = () => {
-  const [localUsername, setLocalUsername] = useState("");
+const Login = ({ onLogin }) => {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [BASE_URL, setBackendUrl] = useState("");
-  const { handleLogin } = useAuth();
 
   useEffect(() => {
     const fetchConfig = async () => {
@@ -25,8 +23,8 @@ const Login = () => {
     setMessage('');
     try {
        const response = await axios.post(`${BASE_URL}/token`, new URLSearchParams({
-        username: localUsername,
-        password,
+         username,
+         password,
        }), {
          headers: {
            'Content-Type': 'application/x-www-form-urlencoded',
@@ -35,8 +33,8 @@ const Login = () => {
 
        const { access_token } = response.data;
        localStorage.setItem('token', access_token); // Save the token in localStorage
-       localStorage.setItem("username", localUsername)
-       handleLogin(localUsername, access_token);
+       localStorage.setItem('username',username)
+      onLogin();
       setMessage('Login successful!');
     } catch (error) {
       console.error('Error logging in:', error);
@@ -52,8 +50,8 @@ const Login = () => {
           <label>Username:</label>
           <input
             type="text"
-            value={localUsername}
-            onChange={(e) => setLocalUsername(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>

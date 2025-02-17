@@ -1,16 +1,13 @@
 // File: src/pages/Home.jsx
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState , useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaUpload, FaSearch, FaChartBar } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import Login from "./Login";
-import loadRuntimeConfig from "../components/config";
-import { checkTokenExpiration } from "../utils/checkTokenExpiration";
-
+import Login from './Login';
+import loadRuntimeConfig  from '../components/config';
 
 const Home = () => {
-  const { isLoggedIn, token, handleLogout} = useContext(AuthContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [stats, setStats] = useState({
     reportsProcessed: 0,
     fastestQueryTime: "N/A",
@@ -19,17 +16,19 @@ const Home = () => {
   const [BASE_URL, setBackendUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const fetchStats = async () => {
-    if (!token) return;
+  const handleLogin = () => setIsLoggedIn(true);
+
+  const fetchStats = async (url) => {
     setLoading(true);
     try {
-      const response = await fetch(`${BASE_URL}/stats/`, {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("No token found");
+
+      const response = await fetch(`${url}/stats/`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
-          "Cache-Control": "no-cache",
-          "Pragma": "no-cache",
         },
       });
 
@@ -48,27 +47,15 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const initialize = async () => {
-      try {
-        console.log("⏳ Fetching runtime config...");
-        const config = await loadRuntimeConfig();
-        console.log("✅ Config Loaded:", config);
-        
-        setBackendUrl(config.REACT_APP_BACKEND_URL);
-  
-        if (token && checkTokenExpiration(token)) {
-          console.warn("🚨 Token expired. Logging out...");
-          handleLogout();
-        } else if (isLoggedIn && token) {
-          console.log("📊 Fetching stats...");
-          fetchStats();
-        }
-      } catch (error) {
-        console.error("❌ Error during initialization:", error);
-      }
+    const fetchConfig = async () => {
+      const config = await loadRuntimeConfig();
+      setBackendUrl(config.REACT_APP_BACKEND_URL);
     };
-    initialize();
-  }, [isLoggedIn, token,BASE_URL]);
+    fetchConfig();
+    if (isLoggedIn) {
+      fetchStats(`${BASE_URL}`);
+    }
+  }, [isLoggedIn]);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -174,7 +161,7 @@ const Home = () => {
           </motion.nav>
         </div>
       ) : (
-        <Login />
+        <Login onLogin={handleLogin} />
       )}
     </div>
   );
