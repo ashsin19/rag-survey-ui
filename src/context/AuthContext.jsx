@@ -1,5 +1,5 @@
 // src/context/AuthContext.jsx
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { checkTokenExpiration } from "../utils/checkTokenExpiration"; // Token expiration checker
 import { useNavigate } from "react-router-dom";
 
