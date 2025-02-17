@@ -5,10 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
-export const useAuth = () => {
-  return useContext(AuthContext); // This is the hook you should import
-};
-
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(null);
@@ -48,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(false);
     setToken(null);
     setUsername("");
-    navigate("/"); // Redirect to login page after logout
+    navigate("/login"); // Redirect to login page after logout
   };
 
   return (
