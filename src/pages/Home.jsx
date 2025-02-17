@@ -17,11 +17,6 @@ const Home = () => {
   const [BASE_URL, setBackendUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-
-  useEffect(() => {
-
-  }, []);
-
   useEffect(() => {
     const fetchConfig = async () => {
       const config = await loadRuntimeConfig();
