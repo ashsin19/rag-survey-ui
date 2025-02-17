@@ -3,12 +3,11 @@ import React, { useState , useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaUpload, FaSearch, FaChartBar } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import Login from './Login';
 import loadRuntimeConfig  from '../components/config';
 
 const Home = () => {
-  const { isLoggedIn, setIsLoggedIn, token } = useAuth();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [stats, setStats] = useState({
     reportsProcessed: 0,
     fastestQueryTime: "N/A",
@@ -53,10 +52,10 @@ const Home = () => {
       setBackendUrl(config.REACT_APP_BACKEND_URL);
     };
     fetchConfig();
-    if (isLoggedIn && token) {
+    if (isLoggedIn) {
       fetchStats(`${BASE_URL}`);
     }
-  }, [isLoggedIn, token, BASE_URL]);
+  }, [isLoggedIn]);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
