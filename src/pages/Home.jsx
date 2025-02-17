@@ -61,7 +61,7 @@ const Home = () => {
     if (isLoggedIn) {
       fetchStats(`${BASE_URL}`);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, BASE_URL]);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
