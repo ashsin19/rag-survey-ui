@@ -48,7 +48,7 @@ const Home = () => {
       const config = await loadRuntimeConfig();
       setBackendUrl(config.REACT_APP_BACKEND_URL);
 
-      if (token && !checkTokenExpiration(token)) {
+      if (token && !checkTokenExpiration()) {
         handleLogout(); // Automatically log out if the token has expired
       } else if (isLoggedIn && token) {
         fetchStats(); // Fetch stats if the user is logged in and the token is valid
