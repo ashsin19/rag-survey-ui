@@ -14,6 +14,9 @@ Google Cloud SDK (for cloud storage and deployment)
 
 gcloud CLI (for managing cloud storage and bucket permissions)
 
+Note about input reports:
+Input reports has to be within 8mb file size per report. Any file that is larger than 8 MB will not be pushed.
+
 PROJECT SETUP
 
 1. Configure Runtime Configuration
