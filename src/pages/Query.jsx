@@ -13,7 +13,7 @@ const Query = () => {
   const [answer, setAnswer] = useState("");
   const [wordCloud, setWordCloud] = useState("");
   const [documents, setDocuments] = useState([]);
-  const { isLoggedIn, token } = useAuth(); 
+  const { isLoggedIn, token, handleLogout } = useAuth(); 
   const navigate = useNavigate();
 
   useEffect(() => {

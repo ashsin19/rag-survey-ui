@@ -10,7 +10,7 @@ const Upload = () => {
   const [loading, setLoading] = useState(false);
   const [BASE_URL, setBackendUrl] = useState("");
   const [error, setError] = useState("");
-  const { isLoggedIn, token } = useAuth();
+  const { isLoggedIn, token, handleLogout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {

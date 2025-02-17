@@ -11,7 +11,7 @@ const Comparison = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [BASE_URL, setBackendUrl] = useState("");
-  const { isLoggedIn, token } = useAuth();
+  const { isLoggedIn, token, handleLogout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,6 +40,7 @@ const Comparison = () => {
 
     if (checkTokenExpiration(token)) {
             alert("Session expired. Please login again.");
+            handleLogout();
             return;
           }
 
