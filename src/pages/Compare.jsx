@@ -38,7 +38,7 @@ const Comparison = () => {
       return;
     }
 
-    if (checkTokenExpiration(access_token)) {
+    if (checkTokenExpiration(token)) {
             alert("Session expired. Please login again.");
             return;
           }

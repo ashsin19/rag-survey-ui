@@ -33,7 +33,7 @@ const Reports = () => {
     console.log('Fetching reports...');
     try {
       if (!token) throw new Error("No token found");
-      if (checkTokenExpiration(access_token)) 
+      if (checkTokenExpiration(token)) 
         {
               alert("Session expired. Please login again.");
               return;
