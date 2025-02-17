@@ -3,6 +3,7 @@ import loadRuntimeConfig  from '../components/config';
 import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext"; 
 import { useNavigate } from "react-router-dom"; 
+import { checkTokenExpiration } from "../utils/checkTokenExpiration";
 
 const Upload = () => {
   const [file, setFile] = useState(null);
@@ -31,6 +32,11 @@ const Upload = () => {
       setError("Please select a file before uploading.");
       return;
     } 
+    if (checkTokenExpiration(token)) {
+      alert("Token expired. Logging out...");
+      handleLogout();
+      return;
+    }
     const fileSizeInMB = file.size / (1024 * 1024);
     if (fileSizeInMB > 8) {
       alert("File size exceeds the 8MB limit. Please upload a smaller file.");

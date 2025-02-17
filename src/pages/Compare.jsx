@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import loadRuntimeConfig  from '../components/config';
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom"
+import { checkTokenExpiration } from "../utils/checkTokenExpiration";
 
 const Comparison = () => {
   const [query, setQuery] = useState("");
@@ -36,6 +37,11 @@ const Comparison = () => {
       setLoading(false);
       return;
     }
+
+    if (checkTokenExpiration(access_token)) {
+            alert("Session expired. Please login again.");
+            return;
+          }
 
     try {
       const response = await fetch(`${BASE_URL}/compare/`, {

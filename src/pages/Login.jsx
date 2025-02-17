@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../assets/styles/Login.css';
 import loadRuntimeConfig  from '../components/config';
 import { AuthContext } from "../context/AuthContext";
+import { checkTokenExpiration } from "../utils/checkTokenExpiration";
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -34,6 +35,10 @@ const Login = () => {
        });
 
       const { access_token } = response.data;
+      if (checkTokenExpiration(access_token)) {
+        setMessage("Session expired. Please login again.");
+        return;
+      }
       handleLogin(username, access_token);
       setMessage('Login successful!');
     } catch (error) {

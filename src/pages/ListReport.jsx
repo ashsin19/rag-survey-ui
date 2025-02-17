@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import loadRuntimeConfig  from '../components/config';
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom"
+import { checkTokenExpiration } from "../utils/checkTokenExpiration";
 
 const Reports = () => {
   const [reports, setReports] = useState([]);
@@ -32,6 +33,11 @@ const Reports = () => {
     console.log('Fetching reports...');
     try {
       if (!token) throw new Error("No token found");
+      if (checkTokenExpiration(access_token)) 
+        {
+              alert("Session expired. Please login again.");
+              return;
+       }
       const response = await fetch(`${url}/reports/`, {
         method: "GET",
         headers: {
