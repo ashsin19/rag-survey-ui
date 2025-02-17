@@ -7,7 +7,7 @@ import { checkTokenExpiration } from "../utils/checkTokenExpiration";
 const Reports = () => {
   const [reports, setReports] = useState([]);
   const [error, setError] = useState("");
-  const { isLoggedIn, token } = useAuth();
+  const { isLoggedIn, token, handleLogout } = useAuth();
   const navigate = useNavigate();
   const [BASE_URL, setBackendUrl] = useState("");
   
@@ -36,6 +36,7 @@ const Reports = () => {
       if (checkTokenExpiration(token)) 
         {
               alert("Session expired. Please login again.");
+              handleLogout();
               return;
        }
       const response = await fetch(`${url}/reports/`, {

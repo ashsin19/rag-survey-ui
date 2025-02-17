@@ -11,7 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [BASE_URL, setBackendUrl] = useState("");
-  const { handleLogin } = useContext(AuthContext);
+  const { handleLogin, handleLogout } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchConfig = async () => {
@@ -37,6 +37,7 @@ const Login = () => {
       const { access_token } = response.data;
       if (checkTokenExpiration(access_token)) {
         setMessage("Session expired. Please login again.");
+        handleLogout();
         return;
       }
       handleLogin(username, access_token);

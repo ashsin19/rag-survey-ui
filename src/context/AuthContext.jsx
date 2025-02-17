@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     }
     const interval = setInterval(() => {
       if (token && checkTokenExpiration(token)) {
-        console.warn("🚨 Token expired. Logging out...");
+        alert("Token expired. Logging out...");
         handleLogout();
       }
     }, 300000); // 5 minutes
