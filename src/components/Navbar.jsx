@@ -2,9 +2,11 @@ import React, { useState , useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // Icons for menu and close
 import "../assets/styles/Navbar.css"
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isLoggedIn, handleLogout } = useAuth();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -89,6 +91,7 @@ const Navbar = () => {
             Reports
           </NavLink>
         </div>
+        {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
       </div>
     </nav>
   );
