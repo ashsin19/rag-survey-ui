@@ -18,11 +18,11 @@ Before running the project, ensure you have the following installed:
 
 ## PROJECT SETUP
 
-1. Configure Runtime Configuration
+### 1. Configure Runtime Configuration
 
 The project relies on a runtime-config.json file, which should be stored in a Google Cloud Storage bucket. Ensure that this file is publicly accessible or that your application has the necessary permissions to access it.
 
-### runtime-config Format:
+** runtime-config Format: ** 
 
 ```
 {
@@ -35,13 +35,13 @@ For Development: Set environment to DEV to use http://localhost:8000 as the back
 
 For Production: Set environment to PROD and specify your cloud backend URL.
 
-2. Update Config File
+### 2. Update Config File
 
 Once the runtime-config.json file is accessible, update the config.js file in the frontend to point to its location:
 
 If you use a different bucket name, update the URL accordingly.
 
-3. Create and Configure Google Cloud Storage Bucket
+### 3. Create and Configure Google Cloud Storage Bucket
 
 By default, the backend expects a bucket named rag-app-deployments_cloudbuild. If you prefer a different name, update the .env file in the Python backend:
 
@@ -49,7 +49,7 @@ BUCKET_NAME=my-custom-bucket-name
 
 If you use a different bucket name, ensure that you replace it in all references throughout the project.
 
-4. Set Up CORS for Cloud Storage
+### 4. Set Up CORS for Cloud Storage
 
 To enable your frontend to communicate with the Google Cloud Storage bucket, run the following command in gcloud CLI:
 
@@ -76,7 +76,7 @@ This allows CORS for the specified methods (GET, POST, PUT, DELETE).
 
 ## FRONTEND SETUP
 
-1. Install Frontend Dependencies
+### 1. Install Frontend Dependencies
 
 Navigate to the frontend directory and run:
 
@@ -90,7 +90,7 @@ or if using yarn:
 yarn install
 ```
 
-2. Start the Frontend
+### 2. Start the Frontend
 
 To start the React application locally:
 
