@@ -22,7 +22,7 @@ Before running the project, ensure you have the following installed:
 
 The project relies on a runtime-config.json file, which should be stored in a Google Cloud Storage bucket. Ensure that this file is publicly accessible or that your application has the necessary permissions to access it.
 
-** runtime-config Format: ** 
+**runtime-config Format:** 
 
 ```
 {
